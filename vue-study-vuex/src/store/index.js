@@ -1,26 +1,32 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    sum: 10
+    sum: 10,
+    names: ["临枫枫", "临啊枫", "小枫枫", "阿枫", "biubiu~"]
   },
   mutations: {
-    increment(state, params) {
-      console.log(state, params)
+    increment(state, payload) {
+      console.log(state, payload);
       state.sum++;
     },
+    decrement(state) {
+      state.sum--;
+    }
   },
   actions: {
-    asyncIncrement(context) {
-      console.log(context)
+    asyncIncrement(context, payload) {
+      console.log(payload);
       setTimeout(() => {
-        context.commit('increment')
+        context.commit("increment");
       }, 1000);
     }
   },
   modules: {},
-  getters: {}
-})
+  getters: {
+    newNames: state => state.names.filter(name => name.includes("枫"))
+  }
+});

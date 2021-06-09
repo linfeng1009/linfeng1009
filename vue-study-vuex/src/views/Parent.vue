@@ -3,7 +3,7 @@
     我是Parent组件 当前求和为：
     {{$store.state.sum}}
     <br>
-    <button @click="increment">点我+1</button>
+    <button @click="increment">点我异步+1</button>
   </div>
 </template>
 

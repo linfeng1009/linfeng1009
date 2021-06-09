@@ -1,9 +1,9 @@
 <template>
   <div class="about">
-    我是about组件 当前求和为：
+    我是child组件 当前求和为：
     {{$store.state.sum}}
     <br>
-    <button>点我-1</button>
+    <button @click="decrement">点我-1</button>
   </div>
 </template>
 
@@ -11,6 +11,11 @@
 export default {
   data() {
     return {};
+  },
+  methods: {
+    decrement(){
+      this.$store.commit('decrement')
+    }
   },
 };
 </script>
