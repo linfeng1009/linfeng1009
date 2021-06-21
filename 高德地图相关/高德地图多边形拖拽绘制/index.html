@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+ 
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <style>
+        html,
+        body,
+        #container {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <title>多边形的绘制和编辑</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <script src="https://webapi.amap.com/maps?v=1.4.15&key=1b8db15c506601338a08780a768b88e7&plugin=AMap.PolyEditor"></script>
+    <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+</head>
+ 
+<body>
+    <div id="container"></div>
+    <div class="input-card" style="width: 120px">
+        <button class="btn" onclick="polyEditor.open()" style="margin-bottom: 5px">开始编辑</button>
+        <button class="btn" onclick="polyEditor.close()">结束编辑</button>
+    </div>
+    <script type="text/javascript">
+        var map = new AMap.Map("container", {
+            center: [116.400274, 39.905812],
+            zoom: 14
+        });
+        var path = [
+            [116.391735, 39.922691],
+            [116.401605, 39.924106],
+            [116.40242, 39.913636],
+            [116.400232, 39.913449],
+            [116.398558, 39.913173],
+            [116.397142, 39.913225],
+            [116.395769, 39.91316],
+            [116.392335, 39.912962],
+        ]
+ 
+ 
+        var polygon = new AMap.Polygon({
+            path: path,
+            // strokeColor: "#FF33FF",
+            strokeWeight: 6,
+            strokeOpacity: 0.2,
+            fillOpacity: 0.4,
+            fillColor: '#1791fc',
+            zIndex: 50,
+        })
+ 
+        map.add(polygon)
+        // 缩放地图到合适的视野级别
+        map.setFitView([polygon])
+ 
+        var polyEditor = new AMap.PolyEditor(map, polygon)
+        polyEditor.open()
+        polyEditor.on('addnode', function (event) {
+            console.log('addnode:' + event.target)
+            // log.info('触发事件：addnode')
+        })
+ 
+        polyEditor.on('adjust', function (event) {
+            console.log('adjust:' + event)
+            // log.info('触发事件：adjust')
+        })
+ 
+        polyEditor.on('removenode', function (event) {
+            console.log('removenode:' + event)
+            // log.info('触发事件：removenode')
+        })
+ 
+        polyEditor.on('end', function (event) {
+            console.log('end:' + event)
+            // log.info('触发事件： end')
+            // event.target 即为编辑后的多边形对象
+        })
+    </script>
+</body>
+ 
+</html>
